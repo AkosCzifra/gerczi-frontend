@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Layout from './components/Layout'
 import Home from './pages/home/Home'
@@ -13,13 +13,15 @@ const App = () => {
     <div className="App">
       <Layout>
         <Switch>
-          <Route path="/about" component={About} />
+          <Route path="/page-not-found" component={PageNotFound} />
           <Route path="/contact" component={Contact} />
+          <Route path="/about" component={About} />
           <Route path="/menu" component={Menu} />
           <Route path="/" exact component={Home} />
-          <Route path="/page-not-found" component={PageNotFound} />
+          <Redirect to="/page-not-found" />
         </Switch>
       </Layout>
+
     </div>
   );
 }
