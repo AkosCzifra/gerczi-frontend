@@ -2,7 +2,7 @@ import React from 'react';
 
 import NavItems from './NavItems'
 
-const Nav = (props) => {
+const NavBar = (props) => {
     return (
         <header>
             <NavItems />
@@ -10,4 +10,4 @@ const Nav = (props) => {
     )
 }
 
-export default Nav;
+export default NavBar;
