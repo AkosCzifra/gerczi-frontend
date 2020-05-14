@@ -11,8 +11,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     if (!error.response) {
-      error.customMessage =
-        'Sorry, something went wrong! We are working on it and we will get it fixed as soon as we can.';
+      error.customMessage = 'Network error';
     } else if (error.response && error.response.status === 500) {
       error.customMessage =
         'Sorry, something went wrong! We are working on it and we will get it fixed as soon as we can.';
