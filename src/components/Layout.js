@@ -1,12 +1,12 @@
 import React from 'react';
 
-import NavBar from './navbar/NavBar'
+import Navbar from './navbar/Navbar'
 import Footer from './Footer'
 
 const Layout = (props) => {
     return (
         <React.Fragment>
-            <NavBar />
+            <Navbar />
             <main>
                 {props.children}
             </main>
