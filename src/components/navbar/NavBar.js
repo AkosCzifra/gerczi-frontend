@@ -13,12 +13,18 @@ import DropdownMenu from './DropdownMenu';
 
 
 const Nav = styled.nav`
-  height: var(--nav-size);
-  background-color: var(--bg);
-  padding: 0 1rem;
-  border-bottom: var(--border);
-  display: flex;
-  justify-content: space-between;
+    height: var(--nav-size);
+    background-color: var(--bg);
+    padding: 0 1rem;
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    width: 100%;
+    box-sizing: border-box;
 `
 
 function Navbar() {
