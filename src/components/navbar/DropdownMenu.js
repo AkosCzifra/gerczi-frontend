@@ -24,6 +24,7 @@ const Dropdown = styled.div`
   padding: 1rem;
   overflow: hidden;
   transition: height var(--speed) ease;
+  z-index: 1;
 `
 
 const Container = styled.div`
