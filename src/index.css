@@ -3,6 +3,10 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
+main {
+  margin-top: 60px;
+}
+
 :root {
   --bg: #141414;
   --bg-accent: #484a4d;
