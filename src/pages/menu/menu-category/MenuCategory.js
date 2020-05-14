@@ -28,22 +28,33 @@ const CategoryTitle = styled.h1`
   position: relative;
   z-index: 5;
   pointer-events: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.09em;
+  padding: 0 70px;
+
+  @media (min-width: 700px) {
+    font-size: 2rem;
+  }
 `;
 
 const OpenCloseIcon = styled(HighlightOffIcon)`
   position: absolute;
-  top: 35%;
+  top: 38%;
   right: 6%;
-  width: 45px !important;
-  height: 45px !important;
+  width: 30px !important;
+  height: 30px !important;
   z-index: 5;
   pointer-events: none;
   transform: rotate(${(props) => (props.isopen === 'true' ? 0 : -135)}deg);
   transition: transform 1.2s ease !important;
+
+  @media (min-width: 700px) {
+    top: 33%;
+    width: 45px !important;
+    height: 45px !important;
+  }
 `;
 
 const CategoryBadgePicture = styled.div`
