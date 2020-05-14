@@ -16,43 +16,64 @@ const MenuCover = styled.div`
 
 const Logo = styled.div`
   position: absolute;
-  top: 5%;
-  left: 8%;
-  width: 200px;
-  height: 200px;
+  top: 4%;
+  left: 6%;
+  width: 150px;
+  height: 150px;
   background: url(${window.location.origin + '/images/gerczi_logo_white.png'});
   background-size: cover;
+
+  @media (min-width: 800px) {
+    top: 5%;
+    left: 8%;
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 const MenuTitle = styled.div`
-  width: 100%;
-  height: 80px;
-  color: #886735;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 80px;
+  color: #886735;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.09em;
+  text-align: center;
+  padding: 0 8px;
+  box-sizing: border-box;
 `;
 
 const LogoTitle = styled.h1`
-  position: absolute;
-  top: 50%;
-  left: 8%;
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
+  display: none;
 
-  &::after {
-    content: '';
+  @media (min-width: 600px) {
     display: block;
-    margin: 0 auto;
-    width: 60%;
-    padding-top: 15px;
-    border-bottom: 4px solid white;
+    position: absolute;
+    top: 37%;
+    left: 6%;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+
+    &::after {
+      content: '';
+      display: block;
+      margin: 0 auto;
+      width: 60%;
+      padding-top: 15px;
+      border-bottom: 4px solid white;
+    }
+  }
+
+  @media (min-width: 800px) {
+    font-size: 2rem;
+    top: 50%;
+    left: 8%;
   }
 `;
 
