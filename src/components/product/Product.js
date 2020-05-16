@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { addProductToCart } from '../../utils/cart-manager/cartManager';
+
 const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -128,7 +130,7 @@ const BuyButton = styled.button`
   padding: 8px 6px 6px 6px;
 
   &:hover {
-    border: 1.2px solid #8e1717;
+    border: 1.5px solid #8e1717;
     color: white;
     background: #8e1717;
     cursor: pointer;
@@ -153,7 +155,9 @@ const Product = ({ product }) => {
       </ProductPictureInfoWrapper>
       <ProductPriceWrapper>
         <ProductPrice>{product.price} $</ProductPrice>
-        <BuyButton>Add to cart</BuyButton>
+        <BuyButton onClick={() => addProductToCart(product._id)}>
+          Add to cart
+        </BuyButton>
       </ProductPriceWrapper>
     </ProductContainer>
   );
