@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { addProductToCart } from '../../utils/cart-manager/cartManager';
+import { CartContext } from '../../context/CartContext';
+import { apiEndpoint } from '../../apiEndpointConfig';
 
 const ProductContainer = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ const ProductContainer = styled.div`
   width: 80%;
   height: auto;
   margin: 18px 0;
+  padding: 6px;
   border-radius: 10px;
   background: #f5f5f5;
   box-shadow: 5px 5px 10px rgba(200, 200, 200),
@@ -25,10 +27,11 @@ const ProductPictureInfoWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  padding: 6px;
   box-sizing: border-box;
+  margin-bottom: 12px;
 
   @media (min-width: 700px) {
+    margin: 0;
     justify-content: flex-start;
     width: 80%;
   }
@@ -39,7 +42,7 @@ const ProductPictureInfoWrapper = styled.div`
 `;
 
 const ProductPicture = styled.div`
-  margin: 6px 6px;
+  margin-right: 6px;
   width: 80px;
   height: 80px;
   border-radius: 100%;
@@ -50,8 +53,7 @@ const ProductPicture = styled.div`
   box-shadow: 10px 10px 20px -10px rgba(0, 0, 0, 0.75);
 
   @media (min-width: 700px) {
-    width: 80px;
-    height: 80px;
+    margin: 8px;
   }
 `;
 
@@ -70,11 +72,6 @@ const ProductTitle = styled.h1`
   color: #8e1717;
   font-weight: 400;
   margin-bottom: 8px;
-
-  @media (min-width: 700px) {
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
 `;
 
 const ProductIngredients = styled.p`
@@ -114,7 +111,6 @@ const ProductPrice = styled.p`
   margin-right: 4px;
 
   @media (min-width: 700px) {
-    font-size: 1.5rem;
     margin-right: 12px;
   }
 `;
@@ -138,13 +134,12 @@ const BuyButton = styled.button`
 `;
 
 const Product = ({ product }) => {
+  const { addProduct } = useContext(CartContext);
   return (
     <ProductContainer>
       <ProductPictureInfoWrapper>
         <ProductPicture
-          picture={
-            product.imageUrl && `http://localhost:6969/${product.imageUrl}`
-          }
+          picture={product.imageUrl && `${apiEndpoint + product.imageUrl}`}
         />
         <ProductInfo>
           <ProductTitle>{product.name}</ProductTitle>
@@ -155,9 +150,7 @@ const Product = ({ product }) => {
       </ProductPictureInfoWrapper>
       <ProductPriceWrapper>
         <ProductPrice>{product.price} $</ProductPrice>
-        <BuyButton onClick={() => addProductToCart(product._id)}>
-          Add to cart
-        </BuyButton>
+        <BuyButton onClick={() => addProduct(product)}>Add to cart</BuyButton>
       </ProductPriceWrapper>
     </ProductContainer>
   );
