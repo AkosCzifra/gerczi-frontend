@@ -4,15 +4,7 @@ import styled from 'styled-components';
 import axios from '../../axios';
 import ErrorHandler from '../../components/error-handler/ErrorHandler';
 import MenuCategory from './menu-category/MenuCategory';
-
-const MenuCover = styled.div`
-  position: relative;
-  width: 100%;
-  height: 500px;
-  background: url(${window.location.origin + '/images/menu_cover.jpg'});
-  background-size: cover;
-  background-position: center 85%;
-`;
+import { PageCover } from '../../styled/styledComponents';
 
 const Logo = styled.div`
   position: absolute;
@@ -31,7 +23,7 @@ const Logo = styled.div`
   }
 `;
 
-const MenuTitle = styled.div`
+const MenuSubTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +38,7 @@ const MenuTitle = styled.div`
   box-sizing: border-box;
 `;
 
-const LogoTitle = styled.h1`
+const CoverTitle = styled.h1`
   display: none;
 
   @media (min-width: 600px) {
@@ -114,13 +106,13 @@ const Menu = () => {
 
   return (
     <React.Fragment>
-      <MenuCover>
+      <PageCover height="500px" image="/images/menu_cover.jpg" positionY="85%">
         <Logo />
-        <LogoTitle>Our menu</LogoTitle>
-      </MenuCover>
-      <MenuTitle>
-        ENJOY GerCzi burgers AT HOME, AT WORK AND ALL YEAR ROUND.
-      </MenuTitle>
+        <CoverTitle>Our menu</CoverTitle>
+      </PageCover>
+      <MenuSubTitle>
+        Enjoy GerCzi burgers at home, at work and all year round.
+      </MenuSubTitle>
       {categories.map((category) => (
         <MenuCategory
           key={category._id}

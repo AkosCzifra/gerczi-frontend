@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import Product from '../../../components/product/Product';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { apiEndpoint } from '../../../apiEndpointConfig';
 
 const CategoryBadge = styled.div`
   position: relative;
@@ -113,13 +114,13 @@ const MenuCategory = (props) => {
         <CategoryTitle>{props.children}</CategoryTitle>
         <OpenCloseIcon isopen={props.isOpen.toString()} />
         <CategoryBadgePicture
-          image={`http://localhost:6969/${props.image}`}
+          image={`${apiEndpoint + props.image}`}
           isOpen={props.isOpen}
         />
       </CategoryBadge>
       <ProductsContainer isOpen={props.isOpen}>
-        {props.products.map((prod) => (
-          <Product key={prod._id} product={prod} />
+        {props.products.map((product) => (
+          <Product key={product._id} product={product} />
         ))}
       </ProductsContainer>
     </React.Fragment>
