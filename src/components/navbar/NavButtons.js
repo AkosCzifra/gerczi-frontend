@@ -18,22 +18,25 @@ const Button = styled.button`
   font-weight: 400;
   font-size: 1rem;
   padding: 8px 6px 6px 6px;
-  border: 1px solid #141414;
+  border: none;
   margin-right: 8px;
   text-transform: uppercase;
 
   &:hover {
     color: #886735;
-    border: 1px solid #886735;
     cursor: pointer;
   }
 `;
 
-const NavButtons = () => {
+const NavButtons = ({ clickHandler }) => {
   return (
     <ButtonsWrapper>
-      <Button>Login</Button>
-      <Button>Signup</Button>
+      <Button name={'login'} onClick={(e) => clickHandler(e)}>
+        Login
+      </Button>
+      <Button name={'signup'} onClick={(e) => clickHandler(e)}>
+        Signup
+      </Button>
     </ButtonsWrapper>
   );
 };

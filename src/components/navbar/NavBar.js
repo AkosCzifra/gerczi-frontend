@@ -40,14 +40,12 @@ const NavItemsWrapper = styled.div`
   }
 `;
 
-const NavBar = ({ isOpen, isMobileDevice, menuHandler }) => {
+const NavBar = ({ isOpen, isMobileDevice, menuHandler, authButtonsHandler }) => {
   const { getSumQuantity } = useContext(CartContext);
 
   let renderNavItems;
   if (isMobileDevice) {
-    renderNavItems = (
-      <MobileMenuToggler isOpen={isOpen} clickHandler={menuHandler} />
-    );
+    renderNavItems = <MobileMenuToggler isOpen={isOpen} clickHandler={menuHandler} />;
   } else {
     renderNavItems = (
       <React.Fragment>
@@ -55,7 +53,7 @@ const NavBar = ({ isOpen, isMobileDevice, menuHandler }) => {
           <NavLinks />
           <NavIcons quantity={getSumQuantity()} />
         </NavItemsWrapper>
-        <NavButtons />
+        <NavButtons clickHandler={authButtonsHandler} />
       </React.Fragment>
     );
   }

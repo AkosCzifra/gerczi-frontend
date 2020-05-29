@@ -29,21 +29,16 @@ const animationTiming = {
   exit: 350,
 };
 
-const MobileMenu = ({ isOpen, navbarHandler }) => {
+const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler }) => {
   const { getSumQuantity } = useContext(CartContext);
 
   return (
-    <Transition
-      mountOnEnter
-      unmountOnExit
-      in={isOpen}
-      timeout={animationTiming}
-    >
+    <Transition mountOnEnter unmountOnExit in={isOpen} timeout={animationTiming}>
       {(state) => (
         <MobileMenuContainer state={state}>
           <NavIcons quantity={getSumQuantity()} navbarHandler={navbarHandler} />
           <NavLinks navbarHandler={navbarHandler} />
-          <NavButtons />
+          <NavButtons clickHandler={authButtonsHandler} />
         </MobileMenuContainer>
       )}
     </Transition>

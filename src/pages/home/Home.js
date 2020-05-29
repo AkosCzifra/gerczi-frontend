@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 
-import axios from '../../axios';
+/* import axios from '../../httpService/axios'; */
 
 const Home = () => {
   useEffect(() => {
     const getTestRequest = async () => {
       try {
-        const response = await axios.get('/');
-        console.log(response);
+        /* const response = await axios.get('/'); */
+        /* console.log(response); */
       } catch (err) {
         console.log(err);
       }

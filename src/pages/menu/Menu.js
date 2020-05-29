@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import axios from '../../axios';
+import axios from '../../httpService/axios';
 import ErrorHandler from '../../components/error-handler/ErrorHandler';
 import MenuCategory from './menu-category/MenuCategory';
 import { PageCover } from '../../styled/styledComponents';
@@ -110,9 +110,7 @@ const Menu = () => {
         <Logo />
         <CoverTitle>Our menu</CoverTitle>
       </PageCover>
-      <MenuSubTitle>
-        Enjoy GerCzi burgers at home, at work and all year round.
-      </MenuSubTitle>
+      <MenuSubTitle>Enjoy GerCzi burgers at home, at work and all year round.</MenuSubTitle>
       {categories.map((category) => (
         <MenuCategory
           key={category._id}
