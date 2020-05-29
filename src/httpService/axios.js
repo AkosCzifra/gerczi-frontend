@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { apiEndpoint } from '../apiEndpointConfig';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:6969',
+  baseURL: `${apiEndpoint}`,
   headers: { Authorization: 'JWT needed' },
 });
 
