@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { getJWTWithExpiry } from '../utils/jwt-manager/JwtManager';
 import { apiEndpoint } from '../apiEndpointConfig';
+
+const jwt = getJWTWithExpiry('jwt');
 
 const instance = axios.create({
   baseURL: `${apiEndpoint}`,
-  headers: { Authorization: 'JWT needed' },
+  headers: { Authorization: `${jwt ? jwt : 'Not authorized'}` },
 });
 
 instance.interceptors.response.use(
