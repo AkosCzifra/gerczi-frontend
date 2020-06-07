@@ -9,22 +9,13 @@ import EmptyCart from '../../components/empty-cart/EmptyCart';
 
 const CartTitle = styled.h1`
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 25%;
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.09em;
-
-  &::after {
-    content: '';
-    display: block;
-    margin: 0 auto;
-    width: 60%;
-    padding-top: 15px;
-    border-bottom: 4px solid white;
-  }
 
   @media (min-width: 450px) {
     left: 30%;
@@ -54,14 +45,9 @@ const ItemsContainer = styled.div`
 
 const Cart = () => {
   const [cartProducts, setCartProducts] = useState([]);
-  const {
-    cart,
-    increment,
-    decrement,
-    remove,
-    getSumQuantity,
-    getSumPrice,
-  } = useContext(CartContext);
+  const { cart, increment, decrement, remove, getSumQuantity, getSumPrice } = useContext(
+    CartContext
+  );
 
   useEffect(() => {
     const cartContext = cart;
@@ -90,21 +76,14 @@ const Cart = () => {
             />
           ))}
         </ItemsContainer>
-        <CartSummaryCard
-          sumQuantity={getSumQuantity()}
-          sumPrice={getSumPrice()}
-        />
+        <CartSummaryCard sumQuantity={getSumQuantity()} sumPrice={getSumPrice()} />
       </React.Fragment>
     );
   }
 
   return (
     <React.Fragment>
-      <PageCover
-        height="200px"
-        image="/images/cart_cover.jpg"
-        positionY="center"
-      >
+      <PageCover height="200px" image="/images/cart_cover.jpg" positionY="center">
         <CartTitle>Your cart</CartTitle>
       </PageCover>
       {renderCart}
