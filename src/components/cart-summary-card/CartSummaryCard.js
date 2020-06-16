@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const CartSummaryContainer = styled.div`
@@ -52,7 +54,7 @@ const CartSummaryItem = styled.div`
   }
 `;
 
-const CheckoutButton = styled.button`
+const OrderLink = styled(Link)`
   color: white;
   border-radius: 10px;
   background: #886735;
@@ -61,6 +63,7 @@ const CheckoutButton = styled.button`
   font-size: 1rem;
   padding: 8px 16px 6px 16px;
   border: none;
+  text-decoration: none;
 
   &:hover {
     background: #8e1717;
@@ -80,7 +83,7 @@ const CartSummaryCard = ({ sumQuantity, sumPrice }) => {
           <h1>Subtotal</h1>
           <p>${sumPrice}</p>
         </CartSummaryItem>
-        <CheckoutButton>Checkout</CheckoutButton>
+        <OrderLink to="/order">Order</OrderLink>
       </CartSummary>
     </CartSummaryContainer>
   );

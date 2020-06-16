@@ -50,8 +50,7 @@ const Cart = () => {
   );
 
   useEffect(() => {
-    const cartContext = cart;
-    setCartProducts(cartContext);
+    setCartProducts(cart);
   }, [cart]);
 
   let renderCart;
