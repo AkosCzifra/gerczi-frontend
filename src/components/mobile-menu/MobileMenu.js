@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Transition } from 'react-transition-group';
 
+import { AuthContext } from '../../context/AuthContext';
 import { CartContext } from '../../context/CartContext';
 import NavLinks from '../navbar/NavLinks';
 import NavIcons from '../navbar/NavIcons';
@@ -31,6 +32,7 @@ const animationTiming = {
 
 const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler }) => {
   const { getSumQuantity } = useContext(CartContext);
+  const { jwt, logout } = useContext(AuthContext);
 
   return (
     <Transition mountOnEnter unmountOnExit in={isOpen} timeout={animationTiming}>
@@ -38,7 +40,7 @@ const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler }) => {
         <MobileMenuContainer state={state}>
           <NavIcons quantity={getSumQuantity()} navbarHandler={navbarHandler} />
           <NavLinks navbarHandler={navbarHandler} />
-          <NavButtons clickHandler={authButtonsHandler} />
+          <NavButtons clickHandler={authButtonsHandler} isLoggedIn={jwt} logout={logout} />
         </MobileMenuContainer>
       )}
     </Transition>

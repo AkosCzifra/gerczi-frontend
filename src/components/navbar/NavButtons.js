@@ -28,15 +28,21 @@ const Button = styled.button`
   }
 `;
 
-const NavButtons = ({ clickHandler }) => {
+const NavButtons = ({ clickHandler, isLoggedIn, logout }) => {
   return (
     <ButtonsWrapper>
-      <Button name={'login'} onClick={(e) => clickHandler(e)}>
-        Login
-      </Button>
-      <Button name={'signup'} onClick={(e) => clickHandler(e)}>
-        Signup
-      </Button>
+      {isLoggedIn ? (
+        <Button onClick={logout}>Logout</Button>
+      ) : (
+        <React.Fragment>
+          <Button name={'login'} onClick={(e) => clickHandler(e)}>
+            Login
+          </Button>
+          <Button name={'signup'} onClick={(e) => clickHandler(e)}>
+            Signup
+          </Button>
+        </React.Fragment>
+      )}
     </ButtonsWrapper>
   );
 };

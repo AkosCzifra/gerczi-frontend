@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import { CartContext } from '../../context/CartContext';
+import { AuthContext } from '../../context/AuthContext';
 import NavLinks from './NavLinks';
 import MobileMenuToggler from '../mobile-menu-toggler/MobileMenuToggler';
 import NavIcons from './NavIcons';
@@ -42,6 +43,7 @@ const NavItemsWrapper = styled.div`
 
 const NavBar = ({ isOpen, isMobileDevice, menuHandler, authButtonsHandler }) => {
   const { getSumQuantity } = useContext(CartContext);
+  const { jwt, logout } = useContext(AuthContext);
 
   let renderNavItems;
   if (isMobileDevice) {
@@ -53,7 +55,7 @@ const NavBar = ({ isOpen, isMobileDevice, menuHandler, authButtonsHandler }) => 
           <NavLinks />
           <NavIcons quantity={getSumQuantity()} />
         </NavItemsWrapper>
-        <NavButtons clickHandler={authButtonsHandler} />
+        <NavButtons clickHandler={authButtonsHandler} isLoggedIn={jwt} logout={logout} />
       </React.Fragment>
     );
   }
