@@ -9,6 +9,7 @@ import Menu from './pages/menu/Menu';
 import Contact from './pages/contact/Contact';
 import About from './pages/about/About';
 import Cart from './pages/cart/Cart';
+import Order from './pages/order/Order';
 import PageNotFound from './pages/page-not-found/PageNotFound';
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/about" component={About} />
             <Route path="/menu" component={Menu} />
             <Route path="/cart" component={Cart} />
+            <Route path="/order" component={Order} />
             <Route path="/" exact component={Home} />
             <Redirect to="/page-not-found" />
           </Switch>
