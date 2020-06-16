@@ -21,3 +21,7 @@ export const getJWTWithExpiry = (key) => {
   }
   return item.value;
 };
+
+export const deleteJwt = (key) => {
+  localStorage.removeItem(key);
+};
