@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import axios from '../../httpService/axios';
 
 import Input from '../input/Input';
+import { AuthContext } from '../../context/AuthContext';
 import { errorMessages, isEmailValid } from '../../utils/validation/RegisterValidation';
-import { setJWTWithExpiry } from '../../utils/jwt-manager/JwtManager';
 
 const LoginFormContainer = styled.form`
   display: flex;
@@ -31,6 +31,7 @@ const LoginButton = styled.button`
 `;
 
 const LoginForm = ({ close }) => {
+  const { adjustJwt } = useContext(AuthContext);
   const [loginForm, setLoginForm] = useState({
     email: {
       elementConfig: {
@@ -96,7 +97,7 @@ const LoginForm = ({ close }) => {
     try {
       const response = await axios.post('/auth/sign-in', loginData);
       if (response.data.success) {
-        setJWTWithExpiry('jwt', response.data.jwt, 86400000);
+        adjustJwt(response.data.jwt);
         window.confirm('Successfully logged in!');
         close();
       }
