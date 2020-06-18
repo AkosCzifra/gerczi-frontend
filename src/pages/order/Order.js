@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import { CartContext } from '../../context/CartContext';
+import { errorMessages, isEmailValid } from '../../utils/validation/RegisterValidation';
 import PersonalDataForm from '../../components/forms/PersonalDataForm';
 import ShippingAddressForm from '../../components/forms/ShippingAddressForm';
 import CartTable from './CartTable/CartTable';
@@ -118,16 +119,42 @@ const Order = () => {
     if (identifier in shippingData) {
       shippingData[identifier].valid = true;
 
+      shippingData = checkRequiredValidation(inputValue, identifier, shippingData);
       shippingData[identifier].value = inputValue;
       shippingData[identifier].touched = true;
+
       setAddress(shippingData);
     } else if (identifier in contactData) {
       contactData[identifier].valid = true;
+
+      if (identifier === 'email' && !isEmailValid(inputValue))
+        contactData = setValidationError(
+          contactData,
+          errorMessages.invalidEmail,
+          false,
+          identifier
+        );
+      contactData = checkRequiredValidation(inputValue, identifier, contactData);
 
       contactData[identifier].value = inputValue;
       contactData[identifier].touched = true;
       setPersonalData(contactData);
     }
+  };
+
+  const checkRequiredValidation = (value, identifier, formData) => {
+    if (value.length <= 0) {
+      const requiredErrorMsg = `Please add your ${formData[identifier].elementConfig.name}!`;
+      return setValidationError(formData, requiredErrorMsg, false, identifier);
+    }
+    return formData;
+  };
+
+  const setValidationError = (formData, errorMsg, isValid, identifier) => {
+    formData[identifier].error = errorMsg;
+    formData[identifier].valid = isValid;
+
+    return formData;
   };
 
   const createOrder = () => {
@@ -179,7 +206,7 @@ const Order = () => {
       <PaymentInfoWrapper>
         <h1>Payment information</h1>
       </PaymentInfoWrapper>
-      <button onClick={submitOrder}>Click</button>
+      <button onClick={submitOrder}>Submit order</button>
     </OrderContainer>
   );
 };
