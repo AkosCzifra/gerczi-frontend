@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getJWTWithExpiry } from '../utils/jwt-manager/JwtManager';
 import { apiEndpoint } from '../apiEndpointConfig';
 
-const jwt = getJWTWithExpiry('jwt');
+const jwt = getJWTWithExpiry('token');
 
 const instance = axios.create({
   baseURL: `${apiEndpoint}`,
