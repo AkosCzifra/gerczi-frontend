@@ -68,6 +68,7 @@ const Layout = (props) => {
       />
       <MobileMenu
         isOpen={isMobileMenuOpen}
+        closeMenu={() => setIsMobileMenuOpen(false)}
         navbarHandler={mobileMenuToggler}
         authButtonsHandler={authButtonsHandler}
       />

@@ -30,7 +30,7 @@ const animationTiming = {
   exit: 350,
 };
 
-const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler }) => {
+const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler, closeMenu }) => {
   const { getSumQuantity } = useContext(CartContext);
   const { jwt, logout } = useContext(AuthContext);
 
@@ -40,7 +40,12 @@ const MobileMenu = ({ isOpen, navbarHandler, authButtonsHandler }) => {
         <MobileMenuContainer state={state}>
           <NavIcons quantity={getSumQuantity()} navbarHandler={navbarHandler} />
           <NavLinks navbarHandler={navbarHandler} />
-          <NavButtons clickHandler={authButtonsHandler} isLoggedIn={jwt} logout={logout} />
+          <NavButtons
+            clickHandler={authButtonsHandler}
+            isLoggedIn={jwt}
+            logout={logout}
+            close={closeMenu}
+          />
         </MobileMenuContainer>
       )}
     </Transition>
