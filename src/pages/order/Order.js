@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { CartContext } from '../../context/CartContext';
 import { errorMessages, isEmailValid } from '../../utils/validation/RegisterValidation';
+import axios from '../../httpService/axios';
 import PersonalDataForm from '../../components/forms/PersonalDataForm';
 import ShippingAddressForm from '../../components/forms/ShippingAddressForm';
 import CartTable from './CartTable/CartTable';
@@ -27,6 +28,7 @@ const ContactInfoWrapper = styled.div`
     font-size: 1.1rem;
     color: #8f2626;
     text-transform: uppercase;
+    border-bottom: 1px solid #908870;
   }
 `;
 
@@ -159,7 +161,7 @@ const Order = () => {
 
   const createOrder = () => {
     let cartArray = [...cart].map((item) => {
-      return { productId: item.productId, quantity: item.quantity };
+      return { productName: item.name, quantity: item.quantity, price: item.price };
     });
 
     let contactInfo = {};
@@ -185,6 +187,7 @@ const Order = () => {
 
   const submitOrder = () => {
     const order = createOrder();
+    axios.post('/order/post-order', order);
     console.log(order);
   };
 
