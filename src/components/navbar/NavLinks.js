@@ -28,9 +28,6 @@ const NavLinks = ({ navbarHandler }) => {
       <NavItem url="/contact" navbarHandler={navbarHandler}>
         Contact
       </NavItem>
-      <NavItem url="/about" navbarHandler={navbarHandler}>
-        About
-      </NavItem>
     </NavLinksContainer>
   );
 };

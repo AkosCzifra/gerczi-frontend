@@ -7,7 +7,6 @@ import Layout from './components/Layout';
 import Home from './pages/home/Home';
 import Menu from './pages/menu/Menu';
 import Contact from './pages/contact/Contact';
-import About from './pages/about/About';
 import Cart from './pages/cart/Cart';
 import Order from './pages/order/Order';
 import Profile from './pages/profile/Profile';
@@ -21,7 +20,6 @@ const App = () => {
           <Switch>
             <Route path="/page-not-found" component={PageNotFound} />
             <Route path="/contact" component={Contact} />
-            <Route path="/about" component={About} />
             <Route path="/menu" component={Menu} />
             <Route path="/cart" component={Cart} />
             <Route path="/order" component={Order} />
