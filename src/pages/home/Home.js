@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-/* import axios from '../../httpService/axios'; */
-
+const HomeContainer = styled.div`
+  min-height: 100vh;
+`;
 const Home = () => {
-  useEffect(() => {
-    const getTestRequest = async () => {
-      try {
-        /* const response = await axios.get('/'); */
-        /* console.log(response); */
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getTestRequest();
-  }, []);
-
-  return <h1>Home</h1>;
+  return (
+    <HomeContainer>
+      <h1>Home</h1>
+    </HomeContainer>
+  );
 };
 
 export default Home;
