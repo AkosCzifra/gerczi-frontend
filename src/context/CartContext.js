@@ -46,6 +46,11 @@ const CartContextProvider = (props) => {
     return sum;
   };
 
+  const deleteCartFromContext = () => {
+    setCart([]);
+    localStorage.removeItem('cart');
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -56,6 +61,7 @@ const CartContextProvider = (props) => {
         remove: remove,
         getSumQuantity: getSumQuantity,
         getSumPrice: getSumPrice,
+        deleteCartFromContext: deleteCartFromContext,
       }}
     >
       {props.children}
