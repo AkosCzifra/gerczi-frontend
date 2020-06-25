@@ -5,8 +5,9 @@ import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import axios from '../../httpService/axios';
 import PersonalData from './personal-data/PersonalData';
 import OrderedItems from './ordered-items/OrderedItems';
-import { PageCover } from '../../styled/styledComponents';
 import ProfileBadge from '@material-ui/icons/AccountCircle';
+import MainProfile from './main-profile/MainProfile';
+import { PageCover } from '../../styled/styledComponents';
 
 const CartTitle = styled.h1`
   position: absolute;
@@ -19,23 +20,19 @@ const CartTitle = styled.h1`
   letter-spacing: 0.09em;
 `;
 
-const ProfileWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 const ProfileContainer = styled.div`
-  margin-top: 12px;
+  margin-top: 24px;
+  min-height: 90vh;
   width: 90%;
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 20% 80%;
   column-gap: 12px;
   justify-items: center;
 `;
 
 const SideMenuContainer = styled.div`
   position: sticky;
-  top: 72px;
+  top: 84px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +94,7 @@ const Profile = (props) => {
       <PageCover height="200px" image="/images/cart_cover.jpg" positionY="center">
         <CartTitle>Your profile</CartTitle>
       </PageCover>
-      <ProfileWrapper>
+      <React.Fragment>
         <ProfileContainer>
           <SideMenuContainer>
             <ProfileIcon />
@@ -106,14 +103,15 @@ const Profile = (props) => {
             <SideMenuLinks to={`${props.match.url}/ordered-items`}>Ordered items</SideMenuLinks>
           </SideMenuContainer>
           <Switch>
-            <Route path={`${props.match.url}/personal-data`} component={PersonalData} />
+            <Route exact path="/profile" component={MainProfile} />
             <Route
-              path={`${props.match.url}/ordered-items`}
-              render={(props) => <OrderedItems {...props} orderedItems={user.orderedItems} />}
+              path={`${props.match.url}/personal-data`}
+              render={(props) => <PersonalData {...props} user={user} />}
             />
+            <Route path={`${props.match.url}/ordered-items`} component={OrderedItems} />
           </Switch>
         </ProfileContainer>
-      </ProfileWrapper>
+      </React.Fragment>
     </React.Fragment>
   );
 };
