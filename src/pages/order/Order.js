@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { CartContext } from '../../context/CartContext';
+import { AuthContext } from '../../context/AuthContext';
 import { errorMessages, isEmailValid } from '../../utils/validation/RegisterValidation';
 import axios from '../../httpService/axios';
 import PersonalDataForm from '../../components/forms/PersonalDataForm';
@@ -11,6 +14,7 @@ import CartTable from './CartTable/CartTable';
 const OrderContainer = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   align-items: center;
   width: 100%;
 `;
@@ -32,12 +36,34 @@ const ContactInfoWrapper = styled.div`
   }
 `;
 
-const ShippingInfoWrapper = styled(ContactInfoWrapper)``;
+const ShippingInfoWrapper = styled(ContactInfoWrapper)`
+  margin: 12px 0;
+`;
 
-const PaymentInfoWrapper = styled(ContactInfoWrapper)``;
+const PaymentInfoWrapper = styled(ContactInfoWrapper)`
+  margin: 12px 0;
+`;
 
-const Order = () => {
-  const { cart, getSumPrice } = useContext(CartContext);
+const Button = styled.button`
+  color: white;
+  border-radius: 10px;
+  background: #886735;
+  outline: none;
+  font-weight: 400;
+  font-size: 1rem;
+  padding: 8px 16px 6px 16px;
+  border: none;
+  margin-bottom: 12px;
+
+  &:hover {
+    background: #8e1717;
+    cursor: pointer;
+  }
+`;
+
+const Order = (props) => {
+  const { cart, getSumPrice, deleteCartFromContext } = useContext(CartContext);
+  const { jwt } = useContext(AuthContext);
   const [address, setAddress] = useState({
     zip: {
       elementConfig: {
@@ -185,33 +211,65 @@ const Order = () => {
     return order;
   };
 
-  const submitOrder = () => {
+  const submitOrder = async () => {
+    let isValidForm = true;
+    let data = {};
+    const formData = { ...personalData, ...address };
+
+    for (let element in formData) {
+      data[element] = formData[element].value;
+      isValidForm = formData[element].valid && isValidForm;
+    }
+
+    if (!isValidForm) {
+      toast.error('Please fill out the form!', { autoClose: 2000 });
+      return;
+    }
+
     const order = createOrder();
-    axios.post('/order/post-order', order);
-    console.log(order);
+
+    try {
+      const request = await axios.post('/order/post-order', order);
+      if (request && request.data.success) {
+        toast.success('Thank you for your order!');
+        props.history.replace('/');
+        deleteCartFromContext();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  if (cart && cart.length === 0) window.location.replace('/menu');
+  if (cart && !cart.length) window.location.replace('/menu');
 
   return (
     <OrderContainer>
       <TableWrapper>
         <CartTable cart={cart} getSumPrice={getSumPrice} />
       </TableWrapper>
-      <ContactInfoWrapper>
-        <h1>Contact information</h1>
-        <PersonalDataForm personalData={personalData} inputChangeHandler={inputChangeHandler} />
-      </ContactInfoWrapper>
-      <ShippingInfoWrapper>
-        <h1>Shipping address</h1>
-        <ShippingAddressForm address={address} inputChangeHandler={inputChangeHandler} />
-      </ShippingInfoWrapper>
-      <PaymentInfoWrapper>
-        <h1>Payment information</h1>
-      </PaymentInfoWrapper>
-      <button onClick={submitOrder}>Submit order</button>
+      {jwt ? (
+        <React.Fragment>
+          <ContactInfoWrapper>
+            <h1>Contact information</h1>
+            <PersonalDataForm
+              personalData={personalData}
+              inputChangeHandler={inputChangeHandler}
+            />
+          </ContactInfoWrapper>
+          <ShippingInfoWrapper>
+            <h1>Shipping address</h1>
+            <ShippingAddressForm address={address} inputChangeHandler={inputChangeHandler} />
+          </ShippingInfoWrapper>
+          <PaymentInfoWrapper>
+            <h1>Payment information</h1>
+          </PaymentInfoWrapper>
+          <Button onClick={submitOrder}>Submit order</Button>
+        </React.Fragment>
+      ) : (
+        <h1>Please login or signup if you want to order!</h1>
+      )}
     </OrderContainer>
   );
 };
 
-export default Order;
+export default withRouter(Order);
