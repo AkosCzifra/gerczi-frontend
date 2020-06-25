@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import CartContextProvider from './context/CartContext';
 import AuthContextProvider from './context/AuthContext';
@@ -12,10 +13,13 @@ import Order from './pages/order/Order';
 import Profile from './pages/profile/Profile';
 import PageNotFound from './pages/page-not-found/PageNotFound';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = () => {
   return (
     <AuthContextProvider>
       <CartContextProvider>
+        <ToastContainer />
         <Layout>
           <Switch>
             <Route path="/page-not-found" component={PageNotFound} />
