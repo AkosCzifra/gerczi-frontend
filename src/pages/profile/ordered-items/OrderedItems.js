@@ -4,6 +4,16 @@ import axios from '../../../httpService/axios';
 
 import Arrow from '@material-ui/icons/KeyboardArrowDown';
 
+const NoOrders = styled.h1`
+  margin: 8px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  text-align: center;
+  color: #8e1717;
+`;
+
 const OrderContainer = styled.div`
   width: 100%;
 `;
@@ -153,13 +163,16 @@ const OrderedItems = () => {
   };
 
   if (!orderedItems) return 'loading...';
+
+  if (orderedItems.length === 0) return <NoOrders>You have not ordered anything yet!</NoOrders>;
+
   let counter = 0;
   return (
     <OrderContainer>
       {orderedItems.map((item) => {
         counter++;
         return (
-          <OrderWrapper>
+          <OrderWrapper key={item._id}>
             <OrderHeader onClick={() => showOrderDetails(item._id)}>
               <p>#{counter}</p>
               <p>{formatDate(item.date)}</p>
@@ -178,7 +191,7 @@ const OrderedItems = () => {
                 </TableHeader>
                 <tbody>
                   {item.orderedItems.map((ordered) => (
-                    <tr>
+                    <tr key={ordered._id}>
                       <td>{ordered.productName}</td>
                       <TableBodyItem>{ordered.quantity}x</TableBodyItem>
                       <TableBodyItem>${ordered.price}</TableBodyItem>
