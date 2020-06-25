@@ -211,7 +211,6 @@ const PersonalData = ({ user }) => {
       const req = await axios.post('/auth/change-personal-data', userData);
 
       if (req.data && req.data.success) {
-        // successfully updated your data
         window.location.replace('/profile');
       }
       console.log(req);
