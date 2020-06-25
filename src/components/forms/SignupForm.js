@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
 
 import axios from '../../httpService/axios';
 import Input from '../input/Input';
@@ -175,14 +176,14 @@ const SignupForm = ({ close }) => {
     }
 
     if (!isValidForm) {
-      window.confirm('Please fill out the form!');
+      toast.error('Please fill out the form correctly!', { autoClose: 2000 });
       return;
     }
 
     try {
       const response = await axios.post('/auth/sign-up', signupData);
       if (response.data.success) {
-        window.confirm('Successfully registered!');
+        toast.success('Successfully registered!', { autoClose: 2000 });
         close();
       }
     } catch (err) {

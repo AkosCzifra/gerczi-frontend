@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   getCart,
   addProductToCart,
@@ -15,6 +16,7 @@ const CartContextProvider = (props) => {
   const addProduct = (product) => {
     const modifiedCart = addProductToCart(product);
     setCart(modifiedCart);
+    toast.info(`${product.name} added to the cart!`, { autoClose: 2000 });
   };
 
   const increment = (id) => {

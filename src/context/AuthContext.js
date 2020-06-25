@@ -16,6 +16,7 @@ export const AuthContextProvider = (props) => {
   const logout = () => {
     setJwt(null);
     deleteJwt('token');
+    window.location.replace('/');
   };
 
   return (

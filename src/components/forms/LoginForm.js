@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import axios from '../../httpService/axios';
+import { toast } from 'react-toastify';
 
 import Input from '../input/Input';
 import { AuthContext } from '../../context/AuthContext';
@@ -30,7 +31,7 @@ const LoginButton = styled.button`
   }
 `;
 
-const LoginForm = ({ close }) => {
+const LoginForm = () => {
   const { adjustJwt } = useContext(AuthContext);
   const [loginForm, setLoginForm] = useState({
     email: {
@@ -90,7 +91,7 @@ const LoginForm = ({ close }) => {
     }
 
     if (!isValidForm) {
-      window.confirm('Please fill out the form!');
+      toast.error('Please fill out the form!', { autoClose: 2000 });
       return;
     }
 
@@ -98,12 +99,11 @@ const LoginForm = ({ close }) => {
       const response = await axios.post('/auth/sign-in', loginData);
       if (response.data.success) {
         adjustJwt(response.data.jwt);
-        window.confirm('Successfully logged in!');
-        close();
+        window.location.replace('/profile');
       }
     } catch (err) {
       if (err.response && err.response.status === 422) {
-        window.confirm('Wrong e-mail or password!');
+        toast.error('Wrong e-mail or password!', { autoClose: 2000 });
       }
     }
   };
