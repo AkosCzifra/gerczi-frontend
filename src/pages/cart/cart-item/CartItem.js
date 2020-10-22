@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import QuantyTotal from '../../../components/quanty-total/QuantyTotal';
-import { apiEndpoint } from '../../../apiEndpointConfig';
+import { API_ENDPOINT } from '../../../constants/apiEndpointConfig';
 
 const ProductContainer = styled.div`
   display: flex;
@@ -14,8 +14,7 @@ const ProductContainer = styled.div`
   margin: 18px 0;
   border-radius: 10px;
   background: #f5f5f5;
-  box-shadow: 5px 5px 10px rgba(200, 200, 200),
-    -5px -5px 10px rgba(255, 255, 255);
+  box-shadow: 5px 5px 10px rgba(200, 200, 200), -5px -5px 10px rgba(255, 255, 255);
 
   @media (min-width: 700px) {
     flex-direction: row;
@@ -79,7 +78,7 @@ const CartItem = ({ product, increment, decrement, remove, quantity }) => {
   return (
     <ProductContainer>
       <ProductInfo>
-        <ProductPicture picture={`${apiEndpoint + product.imageUrl}`} />
+        <ProductPicture picture={`${API_ENDPOINT + product.imageUrl}`} />
         <ProductTitle>{product.name}</ProductTitle>
       </ProductInfo>
       <QuantyTotalWrapper>

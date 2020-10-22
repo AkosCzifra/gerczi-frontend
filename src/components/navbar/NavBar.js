@@ -41,7 +41,7 @@ const NavItemsWrapper = styled.div`
   }
 `;
 
-const NavBar = ({ isOpen, isMobileDevice, menuHandler, authButtonsHandler }) => {
+const NavBar = ({ isOpen, isMobileDevice, menuHandler }) => {
   const { getSumQuantity } = useContext(CartContext);
   const { jwt, logout } = useContext(AuthContext);
 
@@ -55,7 +55,7 @@ const NavBar = ({ isOpen, isMobileDevice, menuHandler, authButtonsHandler }) => 
           <NavLinks />
           <NavIcons quantity={getSumQuantity()} />
         </NavItemsWrapper>
-        <NavButtons clickHandler={authButtonsHandler} isLoggedIn={jwt} logout={logout} />
+        <NavButtons isLoggedIn={jwt} logout={logout} />
       </React.Fragment>
     );
   }

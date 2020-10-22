@@ -1,17 +1,46 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from '../../httpService/axios';
 import { toast } from 'react-toastify';
+import * as ROUTES from '../../constants/routes';
 
 import Input from '../input/Input';
 import { AuthContext } from '../../context/AuthContext';
 import { errorMessages, isEmailValid } from '../../utils/validation/RegisterValidation';
 
 const LoginFormContainer = styled.form`
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 50%;
+  margin: 60px auto;
+  padding: 15px;
+  border: 1px solid #886735;
+  background-color: white;
+`;
+
+const FormTitle = styled.h1`
+  width: 90%;
+  text-align: center;
+  padding-bottom: 12px;
+  margin: 36px 0 60px 0;
+  border-bottom: 1px solid #886735;
+`;
+
+const Text = styled.p`
+  margin: 30px 0;
+`;
+
+const RouterLink = styled(Link)`
+  text-decoration: none;
+  color: #8e1717;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const LoginButton = styled.button`
@@ -99,7 +128,7 @@ const LoginForm = () => {
       const response = await axios.post('/auth/sign-in', loginData);
       if (response.data.success) {
         adjustJwt(response.data.jwt);
-        window.location.replace('/profile');
+        window.location.replace(`${ROUTES.PROFILE}`);
       }
     } catch (err) {
       if (err.response && err.response.status === 422) {
@@ -115,6 +144,7 @@ const LoginForm = () => {
 
   return (
     <LoginFormContainer onSubmit={submitHandler}>
+      <FormTitle>Login</FormTitle>
       {formElementsArray.map((element) => (
         <Input
           key={element.id}
@@ -129,6 +159,9 @@ const LoginForm = () => {
         />
       ))}
       <LoginButton type="submit">Login</LoginButton>
+      <Text>
+        Do not have an account? <RouterLink to={ROUTES.SIGNUP}>Sign up</RouterLink>
+      </Text>
     </LoginFormContainer>
   );
 };

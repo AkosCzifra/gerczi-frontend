@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { getJWTWithExpiry } from '../utils/jwt-manager/JwtManager';
-import { apiEndpoint } from '../apiEndpointConfig';
+import { API_ENDPOINT } from '../constants/apiEndpointConfig';
 
 const jwt = getJWTWithExpiry('token');
 
 const instance = axios.create({
-  baseURL: `${apiEndpoint}`,
+  baseURL: `${API_ENDPOINT}`,
   headers: { Authorization: `${jwt ? jwt : 'Not authorized'}` },
 });
 

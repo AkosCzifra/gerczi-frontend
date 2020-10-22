@@ -106,7 +106,7 @@ const Menu = () => {
 
   return (
     <React.Fragment>
-      <PageCover height="500px" image="/images/menu_cover.jpg" positionY="85%">
+      <PageCover height="500px" image="/images/menu_cover.jpeg" positionY="85%">
         <Logo />
         <CoverTitle>Our menu</CoverTitle>
       </PageCover>

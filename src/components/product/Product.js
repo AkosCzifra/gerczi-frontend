@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { CartContext } from '../../context/CartContext';
-import { apiEndpoint } from '../../apiEndpointConfig';
+import { API_ENDPOINT } from '../../constants/apiEndpointConfig';
 
 const ProductContainer = styled.div`
   display: flex;
@@ -14,8 +14,7 @@ const ProductContainer = styled.div`
   padding: 6px;
   border-radius: 10px;
   background: #f5f5f5;
-  box-shadow: 5px 5px 10px rgba(200, 200, 200),
-    -5px -5px 10px rgba(255, 255, 255);
+  box-shadow: 5px 5px 10px rgba(200, 200, 200), -5px -5px 10px rgba(255, 255, 255);
 
   @media (min-width: 700px) {
     flex-direction: row;
@@ -138,14 +137,10 @@ const Product = ({ product }) => {
   return (
     <ProductContainer>
       <ProductPictureInfoWrapper>
-        <ProductPicture
-          picture={product.imageUrl && `${apiEndpoint + product.imageUrl}`}
-        />
+        <ProductPicture picture={product.imageUrl && `${API_ENDPOINT + product.imageUrl}`} />
         <ProductInfo>
           <ProductTitle>{product.name}</ProductTitle>
-          <ProductIngredients>
-            {product.ingredients.join(', ')}
-          </ProductIngredients>
+          <ProductIngredients>{product.ingredients.join(', ')}</ProductIngredients>
         </ProductInfo>
       </ProductPictureInfoWrapper>
       <ProductPriceWrapper>

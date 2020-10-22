@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import * as ROUTES from '../../constants/routes';
 
 import axios from '../../httpService/axios';
 import Input from '../input/Input';
@@ -13,10 +15,37 @@ import {
 } from '../../utils/validation/RegisterValidation';
 
 const SignupFormContainer = styled.form`
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 50%;
+  margin: 60px auto;
+  padding: 15px;
+  border: 1px solid #886735;
+  background-color: white;
+`;
+
+const FormTitle = styled.h1`
+  width: 90%;
+  text-align: center;
+  padding-bottom: 12px;
+  margin: 36px 0 60px 0;
+  border-bottom: 1px solid #886735;
+`;
+
+const Text = styled.p`
+  margin: 30px 0;
+`;
+
+const RouterLink = styled(Link)`
+  text-decoration: none;
+  color: #8e1717;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const SignupButton = styled.button`
@@ -36,7 +65,7 @@ const SignupButton = styled.button`
   }
 `;
 
-const SignupForm = ({ close }) => {
+const SignupForm = () => {
   const [signupForm, setSignupForm] = useState({
     email: {
       elementConfig: {
@@ -184,7 +213,6 @@ const SignupForm = ({ close }) => {
       const response = await axios.post('/auth/sign-up', signupData);
       if (response.data.success) {
         toast.success('Successfully registered!', { autoClose: 2000 });
-        close();
       }
     } catch (err) {
       console.error(err);
@@ -198,6 +226,7 @@ const SignupForm = ({ close }) => {
 
   return (
     <SignupFormContainer onSubmit={submitHandler}>
+      <FormTitle>Sign up</FormTitle>
       {formElementsArray.map((element) => (
         <Input
           key={element.id}
@@ -212,6 +241,9 @@ const SignupForm = ({ close }) => {
         />
       ))}
       <SignupButton type="submit">Signup</SignupButton>
+      <Text>
+        Already have an account? <RouterLink to={ROUTES.LOGIN}>Login</RouterLink>
+      </Text>
     </SignupFormContainer>
   );
 };

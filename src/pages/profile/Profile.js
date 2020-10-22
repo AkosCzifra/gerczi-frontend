@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { Switch, Route, Link, withRouter } from 'react-router-dom';
+import React from 'react';
 
-import axios from '../../httpService/axios';
+import styled from 'styled-components';
+import { Switch, Route, Link } from 'react-router-dom';
+
 import PersonalData from './personal-data/PersonalData';
 import OrderedItems from './ordered-items/OrderedItems';
 import ProfileBadge from '@material-ui/icons/AccountCircle';
-import MainProfile from './main-profile/MainProfile';
 import { PageCover } from '../../styled/styledComponents';
 
 const CartTitle = styled.h1`
@@ -72,43 +71,24 @@ const ProfileIcon = styled(ProfileBadge)`
   margin-bottom: 6px;
 `;
 
-const Profile = (props) => {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const response = await axios.get('/auth/get-user');
-        setUser(response.data.userData);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUser();
-  }, []);
-
-  if (!user) return <div>loading...</div>;
-
+const Profile = ({ user, ...rest }) => {
   return (
     <React.Fragment>
       <PageCover height="200px" image="/images/cart_cover.jpg" positionY="center">
         <CartTitle>Your profile</CartTitle>
       </PageCover>
       <React.Fragment>
-        <ProfileContainer>
+        <ProfileContainer {...rest}>
           <SideMenuContainer>
             <ProfileIcon />
             <h1>{`Hello ${user.firstName}!`}</h1>
-            <SideMenuLinks to={`${props.match.url}/personal-data`}>Personal data</SideMenuLinks>
-            <SideMenuLinks to={`${props.match.url}/ordered-items`}>Ordered items</SideMenuLinks>
+            <SideMenuLinks to={`/profile/personal-data`}>Personal data</SideMenuLinks>
+            <SideMenuLinks to={`/profile/ordered-items`}>Ordered items</SideMenuLinks>
           </SideMenuContainer>
           <Switch>
-            <Route exact path="/profile" component={MainProfile} />
-            <Route
-              path={`${props.match.url}/personal-data`}
-              render={(props) => <PersonalData {...props} user={user} />}
-            />
-            <Route path={`${props.match.url}/ordered-items`} component={OrderedItems} />
+            <Route exact path="/profile" component={OrderedItems} />
+            <Route path={`/profile/personal-data`} render={() => <PersonalData user={user} />} />
+            <Route path={`/profile/ordered-items`} component={OrderedItems} />
           </Switch>
         </ProfileContainer>
       </React.Fragment>
@@ -116,4 +96,4 @@ const Profile = (props) => {
   );
 };
 
-export default withRouter(Profile);
+export default Profile;

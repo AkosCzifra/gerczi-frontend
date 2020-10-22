@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 import Product from '../../../components/product/Product';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { apiEndpoint } from '../../../apiEndpointConfig';
+import { API_ENDPOINT } from '../../../constants/apiEndpointConfig';
 
 const CategoryBadge = styled.div`
   position: relative;
@@ -83,8 +83,7 @@ const CategoryBadgePicture = styled.div`
     background: ${(props) => `url(${props.image})`};
     background-size: cover;
     background-position: center center;
-    transform: translateY(-80px)
-      ${(props) => (props.isOpen ? `scale(1.2)` : ``)};
+    transform: translateY(-80px) ${(props) => (props.isOpen ? `scale(1.2)` : ``)};
   }
 `;
 
@@ -113,10 +112,7 @@ const MenuCategory = (props) => {
       <CategoryBadge onClick={props.clickHandler} isOpen={props.isOpen}>
         <CategoryTitle>{props.children}</CategoryTitle>
         <OpenCloseIcon isopen={props.isOpen.toString()} />
-        <CategoryBadgePicture
-          image={`${apiEndpoint + props.image}`}
-          isOpen={props.isOpen}
-        />
+        <CategoryBadgePicture image={`${API_ENDPOINT + props.image}`} isOpen={props.isOpen} />
       </CategoryBadge>
       <ProductsContainer isOpen={props.isOpen}>
         {props.products.map((product) => (

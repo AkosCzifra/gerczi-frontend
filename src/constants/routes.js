@@ -1,0 +1,9 @@
+export const HOME = '/';
+export const PROFILE = '/profile';
+export const ORDER = '/order';
+export const CART = '/cart';
+export const MENU = '/menu';
+export const CONTACT = '/contact';
+export const SIGNUP = '/signup';
+export const LOGIN = '/login';
+export const NOT_FOUND = '/page-not-found';
